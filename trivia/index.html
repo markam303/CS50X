@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+    <head>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
+        <link href="./styles.css" rel="stylesheet">
+        <title>Trivia!</title>
+        <script>
+            // TODO: Add code to check answers to questions
+            // wait for DOM content to load
+            document.addEventListener('DOMContentLoaded', function() {
+                // Multiple choice question (Part 1)
+                // select all answer buttons
+                let answer_buttons = document.querySelectorAll('.answer');
+
+                // addd on-click event listeners to each one of them
+                answer_buttons.forEach(button => {
+                    button.onclick = function() {
+                        // check if answer is correct using data attribute
+                        let is_correct = button.getAttribute('data-correct') === 'true';
+
+                        // get the feedback
+                        let closed_feedback = document.getElementById("answer_feedback");
+
+                        // update feedback based on correctness
+                        if (is_correct) {
+                            button.style.backgroundColor = "green";
+                            closed_feedback.style.color = "green";
+                            closed_feedback.innerHTML = "Correct!";
+                        } else {
+                            button.style.backgroundColor = "red";
+                            closed_feedback.style.color = "red";
+                            closed_feedback.innerHTML = "Incorrect";
+                        }
+
+                    };
+                });
+                // open question (Part 2)
+                document.getElementById('submit').onclick = function() {
+                    // get user's answer and convert it to lowercase
+                    const countryInput = document.getElementById('open_answer');
+                    const value = countryInput.value.trim().toLowerCase();
+
+                    //let user_answer = document.getElementById('open_answer').value.trim().toLowerCase();
+
+                    // check if answer is correct (China in this case)
+                    let is_correct = value === 'china';
+
+                    // get feedback element and input field
+                    //let input_field = document.getElementById('open_answer');
+                    let open_feedback = document.getElementById('open_feedback');
+
+                    // update feedback elements based on correctness
+                    if (is_correct) {
+                        countryInput.style.backgroundColor = "lightgreen";
+                        open_feedback.style.color = "green";
+                        open_feedback.innerHTML = "Correct!";
+                    } else {
+                        countryInput.style.backgroundColor = "pink";
+                        open_feedback.style.color = "red";
+                        open_feedback.innerHTML = "Incorrect";
+                    }
+                };
+            });
+        </script>
+    </head>
+
+    <body>
+        <div class="header">
+            <h1>Trivia!</h1>
+        </div>
+
+        <div class="container">
+            <div class="section">
+                <h2>Part 1: Multiple Choice </h2>
+                <hr>
+                <!-- TODO: Add multiple choice question here -->
+                <h3>What is the chemical symbol for gold?</h3>
+                <p id="answer_feedback" style="color: green"></p>
+                <button class="answer" data-correct="true">a. Au</button>
+                <button class="answer" data-correct="false">b. Ag</button>
+                <button class="answer" data-correct="false">c. Go</button>
+                <button class="answer" data-correct="false">d. Fe</button>
+            </div>
+
+            <div class="section">
+                <h2>Part 2: Free Response</h2>
+                <hr>
+                <!-- TODO: Add free response question here -->
+                <h3>Which country has the largest population in the world?</h3>
+                <p id="open_feedback" style="color: green"></p>
+                <input type="text" id="open_answer" placeholder="Enter name of the country">
+                <button id="submit">Submit</button>
+            </div>
+        </div>
+    </body>
+
+</html>
